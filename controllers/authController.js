@@ -46,9 +46,7 @@ export const loginHandler = async (req, res) => {
       return res.status(401).json({ status: res.statusCode, message: 'Password yang Anda masukkan salah' });
     }
 
-    // Login berhasil, membuat token jwt
     const token = jwt.sign({ _id: user._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
-    // res.header('token', token).json({ token: token, _id: user._id, name: user.name });
     res.header(token).json({ token: token, _id: user._id, name: user.name });
   } catch (error) {
     res.status(500).json({ message: error.message });
