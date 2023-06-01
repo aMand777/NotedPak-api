@@ -21,7 +21,7 @@ export const registerHandler = async (req, res) => {
     const register = await user.save();
     res.status(201).json(register);
   } catch (error) {
-    error.code === 11000 ? res.status(400).json({ message: 'Email yang Anda masukkan sudah terdaftar' }) : res.status(400).json({ message: error.message });
+    error.code === 11000 ? res.status(400).json({ message: 'incorrect email' }) : res.status(400).json({ message: error.message });
   }
 };
 
