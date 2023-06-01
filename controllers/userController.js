@@ -33,7 +33,7 @@ export const saveUser = async (req, res) => {
     const insertedUser = await user.save();
     res.status(201).json(insertedUser);
   } catch (error) {
-    error.code === 11000 ? res.status(400).json({ message: 'Email yang Anda masukkan sudah terdaftar' }) : res.status(400).json({ message: error.message });
+    error.code === 11000 ? res.status(400).json({ message: 'email is already register' }) : res.status(400).json({ message: error.message });
   }
 };
 

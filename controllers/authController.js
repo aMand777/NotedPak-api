@@ -21,7 +21,7 @@ export const registerHandler = async (req, res) => {
     const register = await user.save();
     res.status(201).json(register);
   } catch (error) {
-    error.code === 11000 ? res.status(400).json({ message: 'incorrect email' }) : res.status(400).json({ message: error.message });
+    error.code === 11000 ? res.status(400).json({ message: 'email is already register' }) : res.status(400).json({ message: error.message });
   }
 };
 
@@ -37,13 +37,13 @@ export const loginHandler = async (req, res) => {
     // Cek email user
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
-      return res.status(404).json({ status: res.statusCode, message: 'Email yang Anda masukkan salah' });
+      return res.status(404).json({ status: res.statusCode, message: 'incorrect email' });
     }
 
     //   Cek password user
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     if (!validPassword) {
-      return res.status(401).json({ status: res.statusCode, message: 'Password yang Anda masukkan salah' });
+      return res.status(401).json({ status: res.statusCode, message: 'incorrect password' });
     }
 
     const token = jwt.sign({ _id: user._id }, process.env.SECRET_KEY, { expiresIn: '1h' });

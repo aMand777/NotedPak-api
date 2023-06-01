@@ -27,20 +27,10 @@ export const deletedNote = async (req, res) => {
   }
 };
 
-// export const createdNote = async (req, res) => {
-//   const note = new Notes(req.body);
-//   try {
-//     const createdNote = await note.save();
-//     res.status(201).json(createdNote);
-//   } catch (error) {
-//     res.status(400).json({ message: error.message });
-//   }
-// };
-
 export const createdNote = async (req, res) => {
   const { userId, title, body, tags } = req.body;
   const note = new Notes({ userId, title, body, tags });
-  
+
   try {
     const createdNote = await note.save();
     res.status(201).json(createdNote);
